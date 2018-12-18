@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+
+include __DIR__.'/vendor/autoload.php';
+
+use RestCord\DiscordClient;
+$discord = new DiscordClient(['token' => 'NTI0NDIxMjU2NTgyNTI5MDI0.Dvp_EA.L0qg2iHPeNw8ZSpT4P9GJ3r8d10']); 
+
+
+
+$discord->channel->createMessage(['channel.id' => 432719722899832834, 'content' => 'teste do razor']);
+echo "feito!\n\n";
+
