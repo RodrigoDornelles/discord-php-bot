@@ -18,7 +18,7 @@ class Philosopher
 		$phrase= $phrases[$philosopher];
 		unset($phrases);
 
-		return Philosopher::getPhrase($philosopher,rand(0, sizeof($phrase)));
+		return Philosopher::getPhrase($philosopher,rand(0, sizeof($phrase) - 1));
 	}
 
 	/*
@@ -38,9 +38,9 @@ class Philosopher
 		$philosophers = $phrases;
 
 		$c = count($philosophers);
-		$r = rand(0, $phrases);
+		$r = rand(0, sizeof($phrases) - 1);
 
-		for($i=0;$i<$c;$i++){
+		for($i = 0; $i < $c; $i++){
 		    
 		    if($i == $r){ 
 		    	return key($philosophers);
