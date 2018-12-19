@@ -17,4 +17,3 @@ $discord = new DiscordClient(['token' => $_CONFIG['token']]);
 
 
 echo "runned\n\n";
-
