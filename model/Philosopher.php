@@ -42,7 +42,7 @@ class Philosopher
 
 		for($i=0;$i<$c;$i++){
 		    
-		    if($i = $r){ 
+		    if($i == $r){ 
 		    	return key($philosophers);
 		    }
 		    next($philosophers);  
