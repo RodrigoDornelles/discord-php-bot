@@ -49,5 +49,32 @@ class Philosopher
 		}
 		return null;
 	}
+
+	/*
+	 *	format name for Brazilian ABNT pattern
+	 */
+	public function getPhilosopherABNTFormat(&$philosopher)
+	{
+		$philosopher = explode($philosopher, " ");
+		$philosopher = strtoupper($philosopher[1]).$philosopher[0].isset($philosopher[2])?$philosopher[2]:'';
+
+		return $philosopher;
+	}
+
+	/*
+	 *	returns correct name as abbreviated
+	 */
+	public function getPhilosopherCorrectName(&$nick)
+	{
+		$philosophers = require __DIR__.'../src/philosophers.php';
+		$nick = strtolower($nick);
+
+		if(!isset($philosophers[$nick])){
+			return null;
+		}
+
+		$nick = $philosophers[$nick];
+		return $nick;
+	}
 }
    
