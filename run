@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php session_start();
 
-include __DIR__.'/script/Script.php';
+include __DIR__.'/models/Script.php';
 
 /*
  *	application setup starts

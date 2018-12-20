@@ -1,3 +1,4 @@
 <?php return [
-	'sleep' => '100'
+	'sleep' => '1',
+	'cmd_prefix' => ['!','/','+','~']
 ];

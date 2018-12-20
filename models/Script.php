@@ -1,23 +1,29 @@
 <?php 
 
 include __DIR__.'/../vendor/autoload.php';
+include __DIR__.'/Command.php';
 
 use RestCord\DiscordClient;
 
 class Script
 {
-	public $_BOT;
-
 	function __construct()
 	{
-		$_BOT = new DiscordClient(
-			['token' => Script::Config()->token]
-		); 
+		Command::init();
+
+		while (true) {
+			Command::main();
+
+			sleep(Script::Config()->sleep);
+		}
+
 	}
 
 	public function Bot()
 	{
-		return $_BOT;
+		return (object) new DiscordClient(
+			['token' => Script::Config()->token]
+		);
 	}
 
 	public function Config()
