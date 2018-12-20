@@ -53,7 +53,7 @@ class Philosopher
 	/*
 	 *	format name for Brazilian ABNT pattern
 	 */
-	public function getPhilosopherABNTFormat(&$philosopher)
+	public function getPhilosopherABNTFormat($philosopher)
 	{
 		$philosopher = explode($philosopher, " ");
 		$philosopher = strtoupper($philosopher[1]).$philosopher[0].isset($philosopher[2])?$philosopher[2]:'';
@@ -64,7 +64,7 @@ class Philosopher
 	/*
 	 *	returns correct name as abbreviated
 	 */
-	public function getPhilosopherCorrectName(&$nick)
+	public function getPhilosopherCorrectName($nick)
 	{
 		$philosophers = require __DIR__.'../src/philosophers.php';
 		$nick = strtolower($nick);

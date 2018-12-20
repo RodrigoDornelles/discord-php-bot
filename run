@@ -1,19 +1,19 @@
 #!/usr/bin/env php
-<?php include __DIR__.'/vendor/autoload.php';
+<?php session_start();
 
-use RestCord\DiscordClient;
+include __DIR__.'/script/Script.php';
 
+/*
+ *	application setup starts
+ */
 
-
-$_CONFIG = array_merge(
+$_SESSION['_CONFIG'] = $_CONFIG = array_merge(
 	require __DIR__.'/config/main.php',
 	require __DIR__.'/config/token.php',
 	require __DIR__.'/config/channel.php'
 );
 
-
-
-$discord = new DiscordClient(['token' => $_CONFIG['token']]); 
-
-
-echo "runned\n\n";
+/*
+ *	run application
+ */
+$run = new Script();
