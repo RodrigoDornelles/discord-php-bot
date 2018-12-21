@@ -9,8 +9,7 @@ include __DIR__.'/models/Script.php';
 
 $_SESSION['_CONFIG'] = $_CONFIG = array_merge(
 	require __DIR__.'/config/main.php',
-	require __DIR__.'/config/token.php',
-	require __DIR__.'/config/channel.php'
+	require __DIR__.'/config/token.php'
 );
 
 /*

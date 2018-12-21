@@ -18,7 +18,9 @@ class Command
 			$_SESSION['CommandLast'][$chat] = intval($msg[0]['id']);
 		}	
 	}
-
+	/*
+	 *	verification of new commands requested
+	 */
 	public function main()
 	{
 		$lastcommand = $_SESSION['CommandLast'];
@@ -60,12 +62,12 @@ class Command
 
 	public function Chats()
 	{
-		return Script::Config()->cmd;
+		return Script::Channel('cmd');
 	}
 
 	public function Prefix()
 	{
-		return Script::Config()->cmd_prefix;
+		return Script::Config()->get['cmd_prefix'];
 	}
 };
 ?>
