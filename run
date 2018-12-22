@@ -1,18 +1,41 @@
 #!/usr/bin/env php
-<?php session_start();
+<?php session_start(); 
 
-include __DIR__.'/models/Script.php';
+define('__ROOT__', __DIR__);
 
 /*
  *	application setup starts
  */
 
-$_SESSION['_CONFIG'] = $_CONFIG = array_merge(
+$_SESSION['_CONFIG'] = $_CONFIG = array_merge( 
 	require __DIR__.'/config/main.php',
 	require __DIR__.'/config/token.php'
+);
+
+
+/*
+ *	load required libraries
+ */
+spl_autoload_register(
+
+	function($class){
+
+		require __ROOT__."/vendor/autoload.php";
+
+		if( file_exists (__ROOT__."/models/$class.php") ){
+			require_once(__ROOT__."/models/$class.php");
+		}
+		if( file_exists (__ROOT__."/controllers/$class.php") ){
+			require_once(__ROOT__."/controllers/$class.php");
+		}
+	}
+
 );
 
 /*
  *	run application
  */
-$run = new Script();
+Script::run();
+
+
+

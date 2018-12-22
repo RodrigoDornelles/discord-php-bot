@@ -1,11 +1,8 @@
 <?php 
 
-include __DIR__.'/../vendor/autoload.php';
-
 use RestCord\DiscordClient;
 
-
-class Command
+class Command extends BaseModel
 {
 	/*
 	 * stores the last command of each chat to ignore
@@ -47,24 +44,32 @@ class Command
 
 				if($prefix === true){
 					$cmd = explode(" ",substr($msg['content'],1), 2);
-					Command::action($chat, $cmd[0], $cmd[1]);
+					$params = isset($cmd[1])?$cmd[1]:'';
+					$cmd = "action$cmd[0]";
+
+					$author = $msg['author'];
+
+					if(is_callable('CommandController', $cmd[0])){
+						$process = new CommandController($chat,$author['id']);
+						$process->$cmd($author,$chat,$params);
+					}
 				}
 			}
 
 		}
 
 	}
-	private function action($chat, $cmd, $params = null)
-	{
-		$msg = "Olá Rodrigo! \n\nrecebi seu comando.```PHP\n#CMD:\n $cmd\n#PARAMS:\n $params```";
-		Script::Bot()->channel->createMessage(['channel.id' => $chat, 'content' => $msg]);
-	}
-
+	/*
+	 *	list of channels that can use commands
+	 */
 	public function Chats()
 	{
-		return Script::Channel('cmd');
+		return Script::Channels('cmd');
 	}
 
+	/*
+	 *	begin character of a command
+	 */
 	public function Prefix()
 	{
 		return Script::Config()->get['cmd_prefix'];

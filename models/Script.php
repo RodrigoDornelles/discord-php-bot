@@ -1,17 +1,15 @@
 <?php 
 
-include __DIR__.'/../vendor/autoload.php';
-include __DIR__.'/Command.php';
-
 use RestCord\DiscordClient;
 
-class Script
+class Script extends BaseModel
 {
 	/*
 	 *	runs bot discord application
 	 */
-	function __construct()
+	public function run()
 	{
+		Print(Script::Print('starting'));
 		exec("ping discord.gg -c 1", $result);
 
 		/* possible execution verifications */
@@ -24,7 +22,7 @@ class Script
 			die(exec("ping discord.gg -c 1")."\n\n");
 		}
 
-		if(!count(Script::Channel('cmd')) &&  !count(Script::Channel('chats'))){
+		if(!count(Script::Channels('cmd')) &&  !count(Script::Channels('chats'))){
 			die(Script::Print('error').Script::Print('nochats'));
 		}
 
@@ -63,19 +61,9 @@ class Script
 	}
 
 	/*
-	 *	run bot discord api
-	 */
-	public function Bot()
-	{
-		return (object) new DiscordClient(
-			['token' => Script::Config()->token]
-		);
-	}
-
-	/*
 	 *	list of interactive channels
 	 */
-	public function Channel($channel)
+	public function Channels($channel)
 	{
 		return Script::Config()->channels[$channel];
 	}
