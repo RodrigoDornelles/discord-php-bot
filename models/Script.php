@@ -35,7 +35,8 @@ class Script extends BaseModel
 		}
 
 		/* configuration of the application modules */
-		Command::init();
+		BaseModel::init();
+		Command::init();		
 
 		Print(Script::Print('ok').Script::Print('started'));
 		for($i=0; $i < Script::Config()->get['startin']; $i++ ){

@@ -21,6 +21,7 @@ class Command extends BaseModel
 	public function main()
 	{
 		$lastcommand = $_SESSION['CommandLast'];
+		$mention = false;
 
 		foreach(Command::Chats() as $chat)
 		{
@@ -42,17 +43,35 @@ class Command extends BaseModel
 					break;
 				}
 
-				if($prefix === true){
-					$cmd = explode(" ",substr($msg['content'],1), 2);
-					$params = isset($cmd[1])?$cmd[1]:'';
-					$cmd = "action$cmd[0]";
-
-					$author = $msg['author'];
-
-					if(is_callable('CommandController', $cmd[0])){
-						$process = new CommandController($chat,$author['id']);
-						$process->$cmd($author,$chat,$params);
+				if(count($msg['mentions'])){
+					foreach ($msg['mentions'] as $mention) {
+						if($mention['id'] != BaseModel::MyId()){
+							continue;
+						}
+						$mention = true;
+						break;
 					}
+				}
+
+				if($prefix !== true)
+					continue;
+	
+				$cmd = explode(" ",substr($msg['content'],1), 2);
+				$params = isset($cmd[1])?$cmd[1]:'';
+				$cmd = "action$cmd[0]";
+
+				$author = $msg['author'];
+
+
+				if(method_exists('CommandController', $cmd)){
+					$process = new CommandController($msg['id'],$chat,$author['id'], $mention);
+					$process->$cmd($author,$params);
+				}
+				else if($mention === true){
+					BaseModel::Message([
+						'content'=> Message::Template('cmdinvalid'),
+						'channel.id'=>$chat
+					]);
 				}
 			}
 

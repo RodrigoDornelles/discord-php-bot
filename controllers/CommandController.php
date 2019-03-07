@@ -4,15 +4,15 @@ use RestCord\DiscordClient;
 
 class CommandController extends BaseModel
 {
-	public function actionHelloWorld($author, $channel, $params)
+	public function actionHelloWorld($author, $params)
 	{
-		$this->Message(['content' => 'Hello World']);
+		return Message::Send(['content' => 'Hello World']);
 	}
 
-	public function actionBig($author, $channel, $params)
+	public function actionBig($author, $params)
 	{
 		if(!strlen($params)){
-			return $this->Message(['content' => $this->Mention()." insira um texto após o comando!"]);
+			return Message::Send(['content' => $this->Mention()." insira um texto após o comando!"]);
 		}
 
 		$params = str_split(strtolower($params));
@@ -33,7 +33,38 @@ class CommandController extends BaseModel
 				$message .= ":regional_indicator_$char:";
 			}
 		}
-		return $this->Message(['content' => $message]);
+		return Message::Send(['content' => $message]);
 	}
+
+	public function actionMaisGay($author, $params)
+	{
+		$message = Script::Bot()->channel->getChannelMessage([
+			'channel.id'=>$this->Channel(),
+			'message.id'=>$this->Message()
+		]);
+
+		if(count($message['mentions']) < 2){
+			return Message::Send(['content' => $this->Mention().
+				" preciso saber os nomes dos **boy magia** querido!"]);
+		}
+
+		foreach ($message['mentions'] as $mention) {
+			if($mention['id'] > $viadagem){
+				$viadagem = $mention['id'];	
+			}				
+		}
+
+		if($author['id'] >= $viadagem){
+			return Message::Send(['content' => $this->Mention()." Você é muito mais gay, do que esses caras!"]);
+		}
+
+		return Message::Send(['content' => $this->Mention()."\n**[ ATENÇÃO ]** temos um viadão: <@$viadagem>"]);
+	}
+
+	public function actionSentidoDaVida($author, $params)
+	{
+		return Message::Send(['content' => $this->Mention()."\n**[ RESPOSTA ]** :four: :two:"]);
+	}
+
 };
 ?>
