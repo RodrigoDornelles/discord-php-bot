@@ -1,11 +1,11 @@
 <?php return [
 	'get' => [
 		'sleep' => 1,
-		'startin'=> 3,
+		'startin'=> 0,
 		'cmd_prefix' => ['!','/','+']
 	],
 	'channels' => [
-		'cmd' => [],
+		'cmd' => [410774259112345601],
 		'chats' => []
 	],	
 	'messages'=> [

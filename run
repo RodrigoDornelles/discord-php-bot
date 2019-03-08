@@ -22,20 +22,29 @@ spl_autoload_register(
 
 		require __ROOT__."/vendor/autoload.php";
 
-		if( file_exists (__ROOT__."/models/$class.php") ){
-			require_once(__ROOT__."/models/$class.php");
+		if( file_exists (__ROOT__."/script/$class.php") ){
+			require_once(__ROOT__."/script/$class.php");
 		}
-		if( file_exists (__ROOT__."/controllers/$class.php") ){
-			require_once(__ROOT__."/controllers/$class.php");
+		if( file_exists (__ROOT__."/init/$class.php") ){
+			require_once(__ROOT__."/init/$class.php");
+		}
+
+		$files = scandir('controllers');
+		foreach ($files as $file) {
+		    if(strpos($file, 'Controller.php') === false){
+		        continue;
+		    }
+    		require_once( __ROOT__."/controllers/{$file}");
 		}
 	}
 
 );
 
+
 /*
  *	run application
  */
-Script::run();
+Start::now();
 
 
 

@@ -9,4 +9,4 @@
 
 Filosófo Píton | <br> 
 --------- | :------
-![bot-avatar](https://cdn.discordapp.com/attachments/524582133986099212/524582170464092160/unknown.png) | **Versão 0.1**<br><br> `Como dizia o Filósofo Piton, que teve como discípulo nada mais, nada menos que Karl Marx. Tudo na vida depende do quanto você quer entreter alguém`
+![bot-avatar](https://cdn.discordapp.com/attachments/524582133986099212/524582170464092160/unknown.png) | **Versão 0.2**<br><br> `Como dizia o Filósofo Piton, que teve como discípulo nada mais, nada menos que Karl Marx. Tudo na vida depende do quanto você quer entreter alguém`

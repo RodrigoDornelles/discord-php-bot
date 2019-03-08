@@ -1,18 +1,19 @@
 <?php 
 
-use RestCord\DiscordClient;
 
-class CommandController extends BaseModel
+class CommandController extends BaseController
 {
-	public function actionHelloWorld($author, $params)
+
+	public function actionHelloWorld()
 	{
-		return Message::Send(['content' => 'Hello World']);
+		return $this->sendMenssage('Hello World');
 	}
 
-	public function actionBig($author, $params)
+	
+	public function actionBig($params)
 	{
 		if(!strlen($params)){
-			return Message::Send(['content' => $this->Mention()." insira um texto após o comando!"]);
+			return $this->sendMenssage($this->mention." insira um texto após o comando!");
 		}
 
 		$params = str_split(strtolower($params));
@@ -33,9 +34,14 @@ class CommandController extends BaseModel
 				$message .= ":regional_indicator_$char:";
 			}
 		}
-		return Message::Send(['content' => $message]);
+		return $this->sendMenssage($message);
 	}
 
+	public function actionSentidoDaVida()
+	{
+		return $this->sendMenssage($this->mention."\n**[ RESPOSTA ]** :four: :two:");
+	}
+	/*
 	public function actionMaisGay($author, $params)
 	{
 		$message = Script::Bot()->channel->getChannelMessage([
@@ -59,12 +65,6 @@ class CommandController extends BaseModel
 		}
 
 		return Message::Send(['content' => $this->Mention()."\n**[ ATENÇÃO ]** temos um viadão: <@$viadagem>"]);
-	}
-
-	public function actionSentidoDaVida($author, $params)
-	{
-		return Message::Send(['content' => $this->Mention()."\n**[ RESPOSTA ]** :four: :two:"]);
-	}
-
+	}*/
 };
 ?>
