@@ -1,5 +1,11 @@
 <?php 
 
+define('ALIAS_NAMES', 0);
+define('ALIAS_ACTION', 1);
+define('CMD', 0);
+define('PARAM', 1);
+
+
 class CommandProcess extends BaseScript
 {
 	private $lastcommand;
@@ -43,11 +49,17 @@ class CommandProcess extends BaseScript
 					foreach (self::controllers() as $controller) {
 
 						$cmd = explode(" ",substr($msg['content'],1), 2);
-						$params = isset($cmd[1])?$cmd[1]:'';
-						$cmd = "action$cmd[0]";
+						$params = isset($cmd[PARAM])?$cmd[PARAM]:'';
 
-						if(method_exists($controller, $cmd)){
-							$process = new $controller($chat,'cmd', $msg);
+						$process = new $controller($chat,$cmd[CMD],$msg);
+
+						if(self::CommandAlias($controller, $process, $cmd[CMD], $params)){
+							break;
+						}
+
+						$cmd = "action{$cmd[0]}";
+
+						if(method_exists($controller, $cmd)){							
 							$process->$cmd($params);
 							break;
 						}
@@ -57,6 +69,31 @@ class CommandProcess extends BaseScript
 
 		}
 		return true;
+	}
+
+	public static function CommandAlias($controller, $process, $oldcmd, $params)
+	{
+		if(!$process->alias()){
+			return false;
+		}
+
+		foreach ($process->alias() as $aliasGroup) {
+
+
+			foreach ($aliasGroup[ALIAS_NAMES] as $alias) {
+
+				if(strtolower($oldcmd) != strtolower($alias)){
+					continue;	
+				}
+
+				$newcmd = "action{$aliasGroup[ALIAS_ACTION]}";
+				if(method_exists($controller, $newcmd)){							
+					$process->$newcmd($params);
+				 	return true;
+				}			
+			}
+		}
+		return false;
 	}
 
 	public static function Controllers()

@@ -38,7 +38,7 @@ class BaseController extends BaseScript
 
 	public function alias()
 	{
-		return [[]];
+		return null;
 	}
 
 

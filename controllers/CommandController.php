@@ -4,8 +4,23 @@
 class CommandController extends BaseController
 {
 
+	public function alias()
+	{
+		return [
+			[['hello', 'ola'], 'helloWorld'],
+			[['bueno', 'hw'], 'helloWorld'],
+			[['alias', 'test'], 'testAlias']
+		];
+	}
+
+	public function actionTestAlias()
+	{
+		return $this->sendMenssage("`/{$this->action}` Sinonimo para: `/TestAlias`");
+	}
+
 	public function actionHelloWorld()
 	{
+		var_dump(self::alias());
 		return $this->sendMenssage('Hello World');
 	}
 
