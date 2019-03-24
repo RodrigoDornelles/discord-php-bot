@@ -13,6 +13,7 @@ class BaseController extends BaseScript
 	 *	who called the command
 	 */ 
 	public $author; // (object)
+	public $authorId; // (integer)
 
 	/*
 	 * message containing command
@@ -32,7 +33,10 @@ class BaseController extends BaseScript
 	/*
 	 *
 	 */
-	public $mention;
+	public $who;
+
+
+	public $mentions;
 
 	public $everyone = "<@525842470223872000>";
 
@@ -51,8 +55,11 @@ class BaseController extends BaseScript
 
 			$this->message = (object) $message;
 			$this->author = $message['author'];
+			$this->authorId = $message['author']['id'];
 
-			$this->mention = "<@{$this->author['id']}>";
+			$this->mentions = $this->message->mentions;
+
+			$this->who = "<@{$this->authorId}>";
 		}
 	}
 

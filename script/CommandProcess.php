@@ -54,14 +54,14 @@ class CommandProcess extends BaseScript
 						$process = new $controller($chat,$cmd[CMD],$msg);
 
 						if(self::CommandAlias($controller, $process, $cmd[CMD], $params)){
-							break;
+							return true;
 						}
 
 						$cmd = "action{$cmd[0]}";
 
 						if(method_exists($controller, $cmd)){							
 							$process->$cmd($params);
-							break;
+							return true;
 						}
 					}
 				}

@@ -20,7 +20,6 @@ class CommandController extends BaseController
 
 	public function actionHelloWorld()
 	{
-		var_dump(self::alias());
 		return $this->sendMenssage('Hello World');
 	}
 
@@ -28,7 +27,7 @@ class CommandController extends BaseController
 	public function actionBig($params)
 	{
 		if(!strlen($params)){
-			return $this->sendMenssage($this->mention." insira um texto após o comando!");
+			return $this->sendMenssage("{$this->who} insira um texto após o comando!");
 		}
 
 		$params = str_split(strtolower($params));
@@ -54,32 +53,32 @@ class CommandController extends BaseController
 
 	public function actionSentidoDaVida()
 	{
-		return $this->sendMenssage($this->mention."\n**[ RESPOSTA ]** :four: :two:");
+		return $this->sendMenssage("{$this->who}\n**[ RESPOSTA ]** :four: :two:");
 	}
-	/*
-	public function actionMaisGay($author, $params)
+	
+	public function actionMaisGay()
 	{
-		$message = Script::Bot()->channel->getChannelMessage([
-			'channel.id'=>$this->Channel(),
-			'message.id'=>$this->Message()
-		]);
-
-		if(count($message['mentions']) < 2){
-			return Message::Send(['content' => $this->Mention().
-				" preciso saber os nomes dos **boy magia** querido!"]);
+		if(count($this->mentions) < 2){
+			return $this->sendMenssage(
+				"{$this->who} preciso saber os nomes dos **boy magia** querido!"
+			);
 		}
 
-		foreach ($message['mentions'] as $mention) {
+		foreach ($this->mentions as $mention) {
 			if($mention['id'] > $viadagem){
 				$viadagem = $mention['id'];	
 			}				
 		}
 
-		if($author['id'] >= $viadagem){
-			return Message::Send(['content' => $this->Mention()." Você é muito mais gay, do que esses caras!"]);
+		if($this->authorId >= $viadagem){
+			return $this->sendMenssage(
+				"{$this->who} Você é muito mais gay, do que esses caras!"
+			);
 		}
 
-		return Message::Send(['content' => $this->Mention()."\n**[ ATENÇÃO ]** temos um viadão: <@$viadagem>"]);
-	}*/
+		return $this->sendMenssage(
+			"{$this->who}\n**[ ATENÇÃO ]** temos um viadão: <@$viadagem>"
+		);
+	}
 };
 ?>
